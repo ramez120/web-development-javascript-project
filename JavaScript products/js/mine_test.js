@@ -1,5 +1,8 @@
 var products;
 var ind;
+var regexname=/^.{2,30}$/;
+var regexprice=/^([1-9][0-9]([0-9]{0,3})|100000)$/
+var alerts="";
 if(localStorage.getItem("products") ==null)
     {
        products = [];  
@@ -10,7 +13,27 @@ else{
 }
 document.getElementById("addbtn").onclick=function()
 {
-    addProduct();
+    document.getElementById("alerts").innerHTML="";
+    if(regexname.test(document.getElementById("pName").value) == false)
+        {
+           alerts+='<div class="alert alert-danger" role="alert">A product name should be 2-30 characters long</div>' 
+        }
+    if(regexprice.test(document.getElementById("pPrice").value) == false)
+        {
+           alerts+='<div class="alert alert-danger" role="alert">A product price should be between 10-100000 </div>' 
+        }
+    
+    
+    
+        if(alerts !="")
+            {
+            document.getElementById("alerts").innerHTML=alerts;
+                alerts="";
+            }
+    else
+             addProduct();
+      
+   
     
     displayProducts();
     clear();
